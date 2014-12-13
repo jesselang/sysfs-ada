@@ -2,7 +2,7 @@
 --    Copyright (C) 2014 Jesse Lang <jesselang.com>
 --    See the bottom of this file for licensing details.
 
-with "settings";
+with "sysfs_settings";
 
 project SysFS_Build is
    for Source_Dirs use ("src");
@@ -13,7 +13,7 @@ project SysFS_Build is
        "sysfs-utilities.adb",
        "sysfs-utilities.ads");
 
-   Build : Settings.Build_Type := Settings.Build;
+   Build : SysFS_Settings.Build_Type := SysFS_Settings.Build;
 
    for Library_Name use "sysfs-ada";
    for Library_Kind use "static";
@@ -34,9 +34,9 @@ project SysFS_Build is
    for Object_Dir use Project'Exec_Dir & "/obj";
    for Library_Dir use Project'Exec_Dir & "/lib";
 
-   package Compiler renames Settings.Compiler;
-   package Binder   renames Settings.Binder;
-   package Builder  renames Settings.Builder;
+   package Compiler renames SysFS_Settings.Compiler;
+   package Binder   renames SysFS_Settings.Binder;
+   package Builder  renames SysFS_Settings.Builder;
 end SysFS_Build;
 
 --    This program is free software: you can redistribute it and/or modify

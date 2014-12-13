@@ -2,7 +2,7 @@
 --    Copyright (C) 2014 Jesse Lang <jesselang.com>
 --    See the bottom of this file for licensing details.
 
-abstract project Settings is
+abstract project SysFS_Settings is
    type Build_Type is ("Debug", "Release");
    Build : Build_Type := external ("LIBRARY_BUILD", "Debug");
 
@@ -48,7 +48,7 @@ abstract project Settings is
             for Default_Switches ("Ada") use Common_Builder_Options;
       end case;
    end Builder;
-end Settings;
+end SysFS_Settings;
 
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
