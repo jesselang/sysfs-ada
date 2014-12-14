@@ -22,7 +22,7 @@ project SysFS_Build is
    -- Build directories --
    -----------------------
 
-   for Exec_Dir use ".build";
+   for Exec_Dir use "build";
 
    case Build is
       when "Debug" =>

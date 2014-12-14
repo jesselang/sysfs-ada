@@ -13,7 +13,7 @@ abstract project SysFS_Settings is
    Common_Options := ("-gnat05", "-gnato", "-fstack-check");
    --  Common options used for the Debug and Release modes
 
-   Debug_Options := ("-Wall", "-gnatwae", "-g", "-gnata", "-gnatVa", "-gnaty3abCdefhiklM130nOprsSux");
+   Debug_Options := ("-Wall", "-gnatwae", "-g", "-gnata", "-gnatVa", "-gnaty3abdefhiklM130nOprsSux"); -- Add C when available.
 
    Release_Options := ("-O2", "-gnatn2");
 
