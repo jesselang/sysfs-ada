@@ -13,7 +13,8 @@ abstract project SysFS_Settings is
    Common_Options := ("-gnat05", "-gnato", "-fstack-check");
    --  Common options used for the Debug and Release modes
 
-   Debug_Options := ("-Wall", "-gnatwae", "-g", "-gnata", "-gnatVa", "-gnaty3abdefhiklM130nOprsSux"); -- Add C when available.
+   -- -gnatyC not available in GNAT 4.6.
+   Debug_Options := ("-Wall", "-gnatwae", "-g", "-gnata", "-gnatVa", "-gnaty3abdefhiklM130nOprsSux");
 
    Release_Options := ("-O2", "-gnatn2");
 
