@@ -11,29 +11,22 @@ private with Ada.Text_IO;
 package SysFS.Attributes is
    type Attribute_Info is limited private;
 
-   Already_Open : exception;
-
-   procedure Open (Attribute : out Attribute_Info; Path : in String);
-   -- Open Attribute found at Path.
-   -- Raises Already_Open when the attribute at Path is already open (either by another Attribute_Info object, or externally.)
-   -- Raises Not_Found when no attribute was found at Path.
-   -- Raises Not_Supported when the external environment does not support opening of the attribute at Path.
-
-   Not_Open : exception;
-
-   procedure Close (Attribute : in out Attribute_Info);
-   -- Close Attribute.
-   -- Raises Not_Open when Attribute was not first opened with Open.
+   procedure Set_Path (Attribute : out Attribute_Info; Path : in String);
+   -- Sets the path of Attribute to Path.
 
    procedure Read (Attribute : in out Attribute_Info; Item : out String; Last : out Natural);
    -- Read the value from Attribute into Item.
    -- Sets Last to the index value of the last character assigned to Item.
-   -- Raises Not_Open when Attribute was not first opened with Open.
+   -- Raises Not_Found when no attribute was found at the set path.
+   -- Raises Already_Open when the attribute at the set path is already open;
+   -- either by another Attribute_Info object, or by other means.
    -- Raises Not_Supported when the external environment does not support reading from Attribute.
 
    procedure Write (Attribute : in out Attribute_Info; Item : in String);
    -- Write the value of Item to Attribute.
-   -- Raises Not_Open when Attribute was not first opened with Open.
+   -- Raises Not_Found when no attribute was found at the set path.
+   -- Raises Already_Open when the attribute at the set path is already open;
+   -- either by another Attribute_Info object, or by other means.
    -- Raises Not_Supported when the external environment does not support writing to Attribute.
 private -- SysFS.Attributes
    type Attribute_Info is limited record

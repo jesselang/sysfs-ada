@@ -16,6 +16,7 @@ package SysFS is
    -- Common exceptions.
    Not_Found     : exception;
    Not_Supported : exception;
+   Already_Open  : exception;
 private -- SysFS
    Bus_ID     : constant String := "bus";
    Class_ID   : constant String := "class";

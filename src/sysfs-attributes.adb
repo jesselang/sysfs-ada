@@ -8,46 +8,35 @@ with Ada.IO_Exceptions;
 package body SysFS.Attributes is
    use Ada;
 
-   procedure Open (Attribute : out Attribute_Info; Path : in String) is
-   begin -- Open
+   procedure Set_Path (Attribute : out Attribute_Info; Path : in String) is
+   begin -- Set_Path
       Attribute.Path := Strings.Unbounded.To_Unbounded_String (Path);
-      Text_IO.Open (File => Attribute.File, Name => Path, Mode => Text_IO.In_File);
-   exception -- Open
-      when IO_Exceptions.Status_Error =>
-         raise Already_Open;
-      when IO_Exceptions.Name_Error =>
-         raise Not_Found;
-      when IO_Exceptions.Use_Error =>
-         raise Not_Supported;
-   end Open;
-
-   procedure Close (Attribute : in out Attribute_Info) is
-   begin -- Close
-      Text_IO.Close (File => Attribute.File);
-   exception -- Close
-      when IO_Exceptions.Status_Error =>
-         raise Not_Open;
-   end Close;
+   end Set_Path;
 
    procedure Read (Attribute : in out Attribute_Info; Item : out String; Last : out Natural) is
    begin -- Read
-      Text_IO.Reset    (File => Attribute.File);
+      Text_IO.Open (File => Attribute.File, Name => Strings.Unbounded.To_String (Attribute.Path), Mode => Text_IO.In_File);
       Text_IO.Get_Line (File => Attribute.File, Item => Item, Last => Last);
+      Text_IO.Close (File => Attribute.File);
    exception -- Read
+      when IO_Exceptions.Name_Error =>
+         raise Not_Found;
       when IO_Exceptions.Status_Error =>
-         raise Not_Open;
+         raise Already_Open;
       when IO_Exceptions.Use_Error =>
          raise Not_Supported;
    end Read;
 
    procedure Write (Attribute : in out Attribute_Info; Item : in String) is
    begin -- Write
-      Text_IO.Reset (File => Attribute.File, Mode => Text_IO.Out_File);
-      Text_IO.Put   (File => Attribute.File, Item => Item);
-      Text_IO.Reset (File => Attribute.File, Mode => Text_IO.In_File);
+      Text_IO.Open (File => Attribute.File, Name => Strings.Unbounded.To_String (Attribute.Path), Mode => Text_IO.Out_File);
+      Text_IO.Put_Line (File => Attribute.File, Item => Item);
+      Text_IO.Close (File => Attribute.File);
    exception -- Write
+      when IO_Exceptions.Name_Error =>
+         raise Not_Found;
       when IO_Exceptions.Status_Error =>
-         raise Not_Open;
+         raise Already_Open;
       when IO_Exceptions.Use_Error =>
          raise Not_Supported;
    end Write;
